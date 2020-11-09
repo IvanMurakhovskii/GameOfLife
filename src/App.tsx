@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './modules/LoginForm';
 import { store } from '@/store';
 import { PrivateRoute } from './utils';
+import GameField from './components/GameField';
 
 
 const App: FC = () => {
@@ -12,16 +13,10 @@ const App: FC = () => {
             <BrowserRouter>
                 <Switch>
                     <Route path="/login" component={LoginForm} />
-                    <PrivateRoute redirectPath="/login" path="/" component={TestComponent} />
+                    <PrivateRoute redirectPath="/login" path="/" component={GameField} />
                 </Switch>
             </BrowserRouter>
         </Provider >
-    );
-};
-
-const TestComponent: FC = () => {
-    return (
-        <h1>Test</h1>
     );
 };
 

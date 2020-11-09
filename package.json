@@ -6,7 +6,6 @@
   "scripts": {
     "build": "webpack -w",
     "start": "npx webpack-dev-server --mode development --open --hot",
-    "calc": "npx ts-node ./src/calc",
     "lint": "npx eslint --fix",
     "test": "jest --env=jsdom",
     "check": "npm test && npm run lint",
