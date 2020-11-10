@@ -1,6 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { reducer as gameReducer } from '@/components/GameField/slice'
+import { gameSaga } from "@/components/GameField/saga";
+import { fork } from "redux-saga/effects";
 
 const reducer = combineReducers({
     gameReducer
@@ -9,6 +11,7 @@ const reducer = combineReducers({
 export type StoreState = ReturnType<typeof reducer>;
 
 function* rootSaga() {
+    yield fork(gameSaga);
 }
 
 const sagaMiddleware = createSagaMiddleware();

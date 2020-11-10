@@ -1,15 +1,18 @@
-import { CellType, Coordinate } from "@/types";
+import { BoardType, CellType, Coordinate } from "@/types";
 import { makeGrid } from "@/utils";
+import { updateGameField } from "@/utils/GameUtil";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type GameState = {
-    board: Array<Array<CellType>>,
-    start: boolean
+    board: BoardType,
+    isRunning: boolean,
+    intervalId: number | undefined
 }
 
 export const initialState: GameState = {
     board: new Array(),
-    start: false
+    isRunning: false,
+    intervalId: undefined
 };
 
 const game = createSlice({
@@ -21,11 +24,28 @@ const game = createSlice({
             let cell = state.board[x][y];
             cell.alive = !cell.alive;
         },
-        startRandomGame: (state, action: PayloadAction<number>) => {
+        fillInBoardRandom: (state, action: PayloadAction<number>) => {
             const fieldSize = action.payload;
             const board = makeGrid(fieldSize, fieldSize, true);
             state.board = board;
-            state.start = true;
+        },
+        start: (state) => {
+            state.isRunning = true;
+            console.log("action start");
+        },
+        update: (state) => {
+            console.log("action update");
+            updateGameField(state.board);
+        },
+        stop: (state) => {
+            state.isRunning = false;
+        },
+        reset: (state) => {
+            state.isRunning = false;
+            state.board = new Array();
+        },
+        setBoard: (state, action: PayloadAction<BoardType>) => {
+            state.board = action.payload;
         }
     }
 });

@@ -15,7 +15,10 @@ const mapStateToProps = ({ gameReducer }: StoreState) => ({
 
 const mapDispatchToProps = {
   toggleAlive: actions.toggleAlive,
-  startRandomGame: actions.startRandomGame
+  fillInBoardRandom: actions.fillInBoardRandom,
+  updateGame: actions.update,
+  stopGame: actions.stop,
+  startGame: actions.start
 }
 
 export type Props = ReturnType<typeof mapStateToProps> &
@@ -24,7 +27,9 @@ export type Props = ReturnType<typeof mapStateToProps> &
 class GameContainer extends Component<Props, {}> {
 
   componentDidMount() {
-    this.props.startRandomGame(20);
+    this.props.fillInBoardRandom(30);
+
+    this.props.startGame();
   }
 
   render() {
@@ -33,7 +38,7 @@ class GameContainer extends Component<Props, {}> {
         <TableStyle>
           <tbody>
             {this.props.board.map((row, i) =>
-              <tr key={i}> {row.map((cell, j) =>
+              <tr key={i}>{row.map((cell, j) =>
                 <Cell key={j}
                   alive={cell.alive}
                   handleClick={() => { this.props.toggleAlive({ x: i, y: j }); }}

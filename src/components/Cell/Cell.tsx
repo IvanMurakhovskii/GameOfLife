@@ -7,11 +7,9 @@ export interface CellProps {
     handleClick(): void,
 }
 
-
 const CellStyle = styled.td<CellProps>`
     background: ${(props) => props.alive && '#3700B3'};
-    background: $primary-color;
-    border: 1px solid #DDD;
+    border: 1px solid #000000;
     height: 1em;
     width: 1em;
     &:hover {
