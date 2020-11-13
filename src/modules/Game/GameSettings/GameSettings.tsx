@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { StoreState } from '@/store/store';
 import { connect } from 'react-redux';
-import { Box, Button, createStyles, Divider, Grid, makeStyles, Slider, Theme, Typography } from '@material-ui/core';
+import { Box, Button, createStyles, Divider, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import CachedSharpIcon from '@material-ui/icons/CachedSharp';
 import { actions } from '../slice';
 import { Paper } from '@material-ui/core';
-import PatternSelect, { SelectPatterns } from './Select/PatternSelect';
+import PatternSelect from './Select/PatternSelect';
 import MaterialSlider from './Slider/MaterialSlider';
 
 
