@@ -29,7 +29,3 @@ const cellRows10: PatternType = {
 export const patterns: Array<PatternType> = [
     glider, exploder, spaceship, cellRows10
 ];
-
-
-
-

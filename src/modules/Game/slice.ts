@@ -41,9 +41,7 @@ const game = createSlice({
         clear: (state) => {
             state.board = makeGrid(false);
         },
-        setBoard: (state, action: PayloadAction<BoardType>) => {
-            state.board = action.payload;
-        },
+
         setPopulation: (state, action: PayloadAction<number>) => {
             state.population = (action.payload / 100);
         },
