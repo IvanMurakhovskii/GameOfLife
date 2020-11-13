@@ -8,3 +8,9 @@ export type Coordinate = {
 }
 
 export type BoardType = Array<Array<CellType>>;
+
+export type PatternType = {
+    id: number,
+    name: String,
+    points: Array<Coordinate>
+}

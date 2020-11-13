@@ -1,3 +1,3 @@
-import { CellType, Coordinate, BoardType } from './types'
+import { CellType, Coordinate, BoardType, PatternType } from './types'
 
-export { CellType, Coordinate, BoardType };
+export { CellType, Coordinate, BoardType, PatternType };

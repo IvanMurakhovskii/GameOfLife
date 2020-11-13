@@ -4,9 +4,8 @@ import LoginForm from './LoginForm';
 
 const item = <LoginForm />
 
-const wrapper = mount(item);
-
 describe("LoginForm", () => {
+    const wrapper = mount(item);
     it("render item with data", () => {
         expect(wrapper).toMatchSnapshot();
     });

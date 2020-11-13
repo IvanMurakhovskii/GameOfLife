@@ -1,13 +1,16 @@
-import { BoardType, CellType, Coordinate } from "@/types";
+import { BoardType, CellType, Coordinate, PatternType } from "@/types";
+import { patterns } from "./PatternUtil";
 
-export const makeGrid = (height: number, width: number, random = false): Array<Array<CellType>> => {
+export const makeGrid = (random = false, population = 0.1, height = 30, width = 30): Array<Array<CellType>> => {
     let grid = new Array();
     for (var i = 0; i < height; i++) {
         var row = new Array();
         for (var j = 0; j < width; j++) {
             let cell;
             if (random) {
-                cell = Math.random() > 0.9;
+                cell = Math.random() < population;
+            } else {
+                cell = false;
             }
             row.push({
                 alive: cell
@@ -46,23 +49,49 @@ const _getAliveNeighboreCount = (coordinate: Coordinate, board: BoardType) => {
     return neightboreCount;
 }
 
-export const updateGameField = (board: BoardType) => {
-    console.log("updateGameField");
+export const updateGameField = (board: BoardType): BoardType => {
     const height = board.length;
     const width = board[0].length;
 
+    const newBoard = new Array();
     for (let i = 0; i < height; i++) {
+        const row = new Array<CellType>();
+
         for (let j = 0; j < width; j++) {
             const isAlive = board[i][j].alive;
             const aliveNeighboreCount = _getAliveNeighboreCount({ x: i, y: j }, board);
             if (isAlive) {
                 if (aliveNeighboreCount < 2 || aliveNeighboreCount > 3) {
-                    board[i][j].alive = false;
+                    row.push({ alive: false });
+                } else {
+                    row.push({ alive: true });
                 }
             } else {
-                if (aliveNeighboreCount == 3) board[i][j].alive = true;
+                if (aliveNeighboreCount == 3) {
+                    row.push({ alive: true });
+                } else {
+                    row.push({ alive: false });
+                }
             }
         }
+        newBoard.push(row);
+    }
+    return newBoard;
+}
+
+export const insertPatterntToBoard = (board: BoardType, patternId: number) => {
+    const height = board.length;
+    const width = board[0].length;
+    const points = patterns.find((p) => p.id == patternId)?.points;
+    console.log(points);
+
+    if (points !== undefined) {
+        const x = Math.ceil(width / 2);
+        const y = Math.ceil(height / 2);
+
+        points.forEach((point) => {
+            board[x + point.x][y + point.y].alive = true;
+        })
     }
 }
 
