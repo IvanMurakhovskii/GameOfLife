@@ -14,4 +14,9 @@ describe("Login slice", () => {
         const state = reducer(initialState, actions.logout());
         expect(state.username).toEqual("");
     });
+
+    it("action should set username", () => {
+        const state = reducer(initialState, actions.setUsername("username"));
+        expect(state.username).toEqual("username");
+    });
 });
