@@ -1,4 +1,4 @@
-import UserHeader from '@/modules/Authentification/UserHeader';
+import Header from '@/modules/Authentification/UserHeader';
 import { StoreState } from '@/store/store';
 import { Container, createStyles, Grid, makeStyles, Paper, Theme } from '@material-ui/core';
 import React, { FC, useCallback } from 'react';
@@ -53,7 +53,7 @@ const GameContainer: FC<Props> = (props) => {
     <Container component="main" className={classes.container}>
       <Grid container spacing={1} alignContent="center" alignItems="stretch">
         <Grid item xs={4} >
-          <UserHeader />
+          <Header />
           <GameSettings
             isRunning={props.isRunning}
             fillInBoardRandom={props.fillInBoardRandom}
