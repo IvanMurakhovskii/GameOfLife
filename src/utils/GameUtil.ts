@@ -1,4 +1,4 @@
-import { BoardType, CellType, Coordinate, PatternType } from "@/types";
+import { BoardType, CellType, Coordinate } from "@/types";
 import { patterns } from "./PatternUtil";
 
 export const makeGrid = (random = false, population = 0.1, height = 30, width = 30): Array<Array<CellType>> => {

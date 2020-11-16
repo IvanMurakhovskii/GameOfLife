@@ -1,34 +1,24 @@
 import React, { FC } from 'react';
-import { StoreState } from '@/store/store';
-import { connect } from 'react-redux';
 import { Box, Button, createStyles, Divider, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import CachedSharpIcon from '@material-ui/icons/CachedSharp';
-import { actions } from '../slice';
 import { Paper } from '@material-ui/core';
-import PatternSelect from './Select/PatternSelect';
-import MaterialSlider from './Slider/MaterialSlider';
+import PatternSelect from './PatternSelect';
+import MaterialSlider from './MaterialSlider';
 
-
-const mapStateToProps = ({ gameReducer }: StoreState) => ({
-  ...gameReducer
-});
-
-const mapDispatchToProps = {
-  fillInBoardRandom: actions.fillInBoardRandom,
-  updateGame: actions.update,
-  stopGame: actions.stop,
-  startGame: actions.start,
-  clear: actions.clear,
-  setSpeed: actions.setSpeed,
-  setPopulation: actions.setPopulation,
-  insertPattern: actions.insertPattern
+type Props = {
+  isRunning: boolean
+  fillInBoardRandom(): void,
+  updateGame(): void,
+  stopGame(): void,
+  startGame(): void,
+  clear(): void,
+  setSpeed(speed: number): void,
+  setPopulation(population: number): void,
+  insertPattern(patternId: number): void
 }
-
-export type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,11 +35,6 @@ const GameSettings: FC<Props> = (props: Props) => {
   const classes = useStyles();
 
   const icon = props.isRunning ? <PauseIcon /> : <PlayArrowRoundedIcon />;
-
-  const hendleClickClear = () => {
-    props.stopGame();
-    props.clear();
-  };
 
   return (
     <Paper elevation={3}>
@@ -112,7 +97,7 @@ const GameSettings: FC<Props> = (props: Props) => {
           <Button color="default"
             variant="contained"
             className={classes.button}
-            onClick={hendleClickClear}>
+            onClick={props.clear}>
             Clear
             </Button>
         </Grid>
@@ -121,6 +106,6 @@ const GameSettings: FC<Props> = (props: Props) => {
   );
 }
 
-export const Settings = connect(mapStateToProps, mapDispatchToProps)(GameSettings);
+export default GameSettings;
 
 

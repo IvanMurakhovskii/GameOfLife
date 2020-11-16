@@ -1,12 +1,36 @@
+import UserHeader from '@/modules/Authentification/UserHeader';
+import { StoreState } from '@/store/store';
 import { Container, createStyles, Grid, makeStyles, Paper, Theme } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { connect } from 'react-redux';
 import GameField from './GameField';
-import Settings from './GameSettings';
+import GameSettings from './GameSettings';
+import { actions } from './slice';
+
+const mapStateToProps = ({ gameReducer }: StoreState) => ({
+  ...gameReducer
+});
+
+const mapDispatchToProps = {
+  fillInBoardRandom: actions.fillInBoardRandom,
+  updateGame: actions.update,
+  stopGame: actions.stop,
+  startGame: actions.start,
+  clear: actions.clear,
+  setSpeed: actions.setSpeed,
+  setPopulation: actions.setPopulation,
+  insertPattern: actions.insertPattern,
+  toggleAlive: actions.toggleAlive
+}
+
+
+export type Props = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      marginTop: theme.spacing(8),
+    container: {
+      margin: 'auto',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -15,17 +39,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Game: FC<{}> = () => {
+const GameContainer: FC<Props> = (props) => {
   const classes = useStyles();
+
+  const handleClickClear = useCallback(() => {
+    props.stopGame();
+    props.clear();
+  },
+    [props.isRunning]
+  );
+
   return (
-    <Container component="main" className={classes.paper}>
+    <Container component="main" className={classes.container}>
       <Grid container spacing={1} alignContent="center" alignItems="stretch">
         <Grid item xs={4} >
-          <Settings />
+          <UserHeader />
+          <GameSettings
+            isRunning={props.isRunning}
+            fillInBoardRandom={props.fillInBoardRandom}
+            updateGame={props.updateGame}
+            stopGame={props.stopGame}
+            startGame={props.startGame}
+            clear={handleClickClear}
+            setSpeed={props.setSpeed}
+            setPopulation={props.setPopulation}
+            insertPattern={props.insertPattern} />
         </Grid>
         <Grid item >
           <Paper elevation={3}>
-            <GameField />
+            <GameField
+              board={props.board}
+              toggleAlive={props.toggleAlive}
+              fillInBoardRandom={props.fillInBoardRandom} />
           </Paper>
         </Grid>
       </Grid>
@@ -33,8 +78,5 @@ const Game: FC<{}> = () => {
   );
 }
 
-export default Game;
-
-// export const GameField = connect(mapStateToProps, mapDispatchToProps)(GameContainer);
-
+export const Game = connect(mapStateToProps, mapDispatchToProps)(GameContainer);
 

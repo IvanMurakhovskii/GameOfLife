@@ -4,8 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { logIn } from '@/utils';
 import { useHistory } from 'react-router-dom';
+import { StoreState } from '@/store/store';
+import { connect } from 'react-redux';
+import { actions } from '@/modules/Authentification/slice';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -23,17 +25,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const mapDispatchToProps = {
+    login: actions.login
+}
+
+export type Props = typeof mapDispatchToProps;
+
 type inputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const LoginForm: FC<{}> = () => {
+const LoginPage: FC<Props> = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const [state, setState] = useState({ username: '' });
 
     const handleSubmit = useCallback((_event) => {
         _event.preventDefault();
-
-        logIn(state.username);
+        props.login(state.username);
         history.push("/");
     }, [state.username]);
 
@@ -78,4 +85,4 @@ const LoginForm: FC<{}> = () => {
 
 }
 
-export default LoginForm;
+export const Login = connect(null, mapDispatchToProps)(LoginPage);

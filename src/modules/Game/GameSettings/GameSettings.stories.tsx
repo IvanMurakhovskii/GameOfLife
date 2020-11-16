@@ -1,13 +1,27 @@
 import React from "react";
-import { number, withKnobs } from "@storybook/addon-knobs";
-import MaterialSlider from "./Slider/MaterialSlider";
+import { boolean, number, withKnobs } from "@storybook/addon-knobs";
+import MaterialSlider from "./MaterialSlider/MaterialSlider";
 import { action } from "@storybook/addon-actions";
-import PatternSelect from "./Select/PatternSelect";
+import PatternSelect from "./PatternSelect/PatternSelect";
+import GameSettings from "./GameSettings";
 
 export default {
     title: "GameSettings",
     decorators: [withKnobs]
 };
+
+export const settings: React.FC = () => (
+    <GameSettings
+        isRunning={boolean("isRunning", true)}
+        fillInBoardRandom={action("fillInBoardRandom")}
+        updateGame={action("updateGame")}
+        stopGame={action("stopGame")}
+        startGame={action("startGame")}
+        clear={action("clear")}
+        setSpeed={action("setSpeed")}
+        setPopulation={action("setPopulation")}
+        insertPattern={action("insertPattern")} />
+);
 
 export const slider: React.FC = () => (
     <MaterialSlider
