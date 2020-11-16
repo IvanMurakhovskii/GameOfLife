@@ -1,8 +1,9 @@
 import React from "react";
-import { withKnobs } from "@storybook/addon-knobs";
-import Login from "./";
-import { Provider } from "react-redux";
-import { store } from "@/store";
+import { text, withKnobs } from "@storybook/addon-knobs";
+import LoginForm from "./LoginForm";
+import { action } from "@storybook/addon-actions";
+import InputText from "./LoginForm/InputText";
+import SignInButton from "./LoginForm/SignInButton";
 
 export default {
     title: "LoginPage",
@@ -10,8 +11,17 @@ export default {
 };
 
 export const loginForm: React.FC = () => (
-    <Provider store={store}>
-        <Login />
-    </Provider>
+    <LoginForm
+        login={action("login")} />
+);
 
+
+export const inputText: React.FC = () => (
+    <InputText
+        handleChange={action('change')}
+        value={text("value", "text")} />
+);
+
+export const signInButton: React.FC = () => (
+    <SignInButton />
 );

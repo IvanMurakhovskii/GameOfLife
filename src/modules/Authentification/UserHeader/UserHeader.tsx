@@ -3,9 +3,10 @@ import { StoreState } from '@/store/store';
 import { actions } from '@/modules/Authentification/slice';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, createStyles, makeStyles, Paper, Typography, Theme, styled } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Paper, styled } from '@material-ui/core';
 import { getUsername } from '@/utils';
+import AccountField from './AccountField';
+import LogoutButton from './LogoutButton';
 
 
 const mapStateToProps = ({ loginReducer }: StoreState) => ({
@@ -16,14 +17,6 @@ const mapDispatchToProps = {
     logout: actions.logout,
     setUsername: actions.setUsername
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        typography: {
-            flexGrow: 1,
-        }
-    }),
-);
 
 const CustomPaper = styled(Paper)({
     backgroundColor: '#3f51b5',
@@ -43,7 +36,6 @@ export type Props = ReturnType<typeof mapStateToProps> &
 
 const UserHeader: FC<Props> = (props) => {
     const history = useHistory();
-    const classes = useStyles();
 
     useEffect(() => {
         getUsername().then((username) => {
@@ -58,18 +50,8 @@ const UserHeader: FC<Props> = (props) => {
 
     return (
         <CustomPaper elevation={3}>
-            <AccountCircleIcon fontSize="large" />
-            <Typography className={classes.typography}>
-                {props.username}
-            </Typography>
-            <Button
-                variant="contained"
-                size="small"
-                color="secondary"
-                id="logout"
-                onClick={handleLogout}>
-                Logout
-            </Button>
+            <AccountField username={props.username} />
+            <LogoutButton handleLogout={handleLogout} />
         </CustomPaper>
     );
 }

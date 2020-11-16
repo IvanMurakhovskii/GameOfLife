@@ -83,7 +83,6 @@ export const insertPatterntToBoard = (board: BoardType, patternId: number) => {
     const height = board.length;
     const width = board[0].length;
     const points = patterns.find((p) => p.id == patternId)?.points;
-    console.log(points);
 
     if (points !== undefined) {
         const x = Math.ceil(width / 2);

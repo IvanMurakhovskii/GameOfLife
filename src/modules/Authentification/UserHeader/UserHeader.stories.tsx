@@ -1,9 +1,8 @@
 import React from "react";
-import { withKnobs } from "@storybook/addon-knobs";
-import { Grid } from "@material-ui/core";
-import Header from "./";
-import { Provider } from "react-redux";
-import { store } from "@/store";
+import { text, withKnobs } from "@storybook/addon-knobs";
+import AccountField from "./AccountField";
+import LogoutButton from "./LogoutButton";
+import { action } from "@storybook/addon-actions";
 
 
 export default {
@@ -11,12 +10,10 @@ export default {
     decorators: [withKnobs],
 };
 
-export const userInfo: React.FC = () => (
-    <Provider store={store}>
-        <Grid zeroMinWidth>
-            <Header />
-        </Grid>
-    </Provider>
+export const accountField: React.FC = () => (
+    <AccountField username={text("username", "Username")} />
+);
 
-
+export const logoutButton: React.FC = () => (
+    <LogoutButton handleLogout={action("handleLogout")} />
 );
