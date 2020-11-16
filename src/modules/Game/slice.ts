@@ -1,18 +1,20 @@
-import { BoardType, CellType, Coordinate } from "@/types";
+import { BoardType, Coordinate } from "@/types";
 import { makeGrid } from "@/utils";
-import { updateGameField } from "@/utils/GameUtil";
+import { insertPatterntToBoard, updateGameField } from "@/utils/GameUtil";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type GameState = {
     board: BoardType,
     isRunning: boolean,
-    intervalId: number | undefined
+    population: number,
+    speed: number
 }
 
 export const initialState: GameState = {
     board: new Array(),
     isRunning: false,
-    intervalId: undefined
+    population: 0.1,
+    speed: 700
 };
 
 const game = createSlice({
@@ -24,29 +26,34 @@ const game = createSlice({
             let cell = state.board[x][y];
             cell.alive = !cell.alive;
         },
-        fillInBoardRandom: (state, action: PayloadAction<number>) => {
-            const fieldSize = action.payload;
-            const board = makeGrid(fieldSize, fieldSize, true);
-            state.board = board;
+        fillInBoardRandom: (state) => {
+            state.board = makeGrid(true, state.population);
         },
         start: (state) => {
             state.isRunning = true;
-            console.log("action start");
         },
         update: (state) => {
-            console.log("action update");
-            updateGameField(state.board);
+            state.board = updateGameField(state.board);
         },
         stop: (state) => {
             state.isRunning = false;
         },
-        reset: (state) => {
-            state.isRunning = false;
-            state.board = new Array();
+        clear: (state) => {
+            state.board = makeGrid(false);
         },
         setBoard: (state, action: PayloadAction<BoardType>) => {
             state.board = action.payload;
-        }
+        },
+        setPopulation: (state, action: PayloadAction<number>) => {
+            state.population = (action.payload / 100);
+        },
+        setSpeed: (state, action: PayloadAction<number>) => {
+            state.speed = ((100 - action.payload) * 10);
+        },
+        insertPattern: (state, action: PayloadAction<number>) => {
+            state.board = makeGrid(false);
+            insertPatterntToBoard(state.board, action.payload)
+        },
     }
 });
 

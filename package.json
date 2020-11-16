@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -w",
-    "start": "npx webpack-dev-server --mode development --open --hot",
-    "lint": "npx eslint --fix",
-    "test": "jest --env=jsdom",
+    "start": "webpack-dev-server --mode development --open --hot",
+    "lint": "eslint --fix",
+    "test": "jest --env=jsdom --coverage",
     "check": "npm test && npm run lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

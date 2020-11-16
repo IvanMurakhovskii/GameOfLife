@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { reducer as gameReducer } from '@/components/GameField/slice'
-import { gameSaga } from "@/components/GameField/saga";
+import { reducer as gameReducer } from '@/modules/Game/slice'
+import { gameSaga } from "@/modules/Game/saga";
 import { fork } from "redux-saga/effects";
 
 const reducer = combineReducers({

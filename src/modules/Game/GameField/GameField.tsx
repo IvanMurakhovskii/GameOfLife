@@ -1,13 +1,8 @@
-import styled from '@emotion/styled';
 import React, { Component } from 'react';
 import Cell from '@/components/Cell';
 import { StoreState } from '@/store/store';
-import { actions } from './slice';
+import { actions } from '../slice';
 import { connect } from 'react-redux';
-
-const TableStyle = styled.table`
-  margin: 1em 0;
-`;
 
 const mapStateToProps = ({ gameReducer }: StoreState) => ({
   ...gameReducer
@@ -27,27 +22,21 @@ export type Props = ReturnType<typeof mapStateToProps> &
 class GameContainer extends Component<Props, {}> {
 
   componentDidMount() {
-    this.props.fillInBoardRandom(30);
-
-    this.props.startGame();
+    this.props.fillInBoardRandom();
   }
 
   render() {
     return (
-      <div>
-        <TableStyle>
-          <tbody>
-            {this.props.board.map((row, i) =>
-              <tr key={i}>{row.map((cell, j) =>
-                <Cell key={j}
-                  alive={cell.alive}
-                  handleClick={() => { this.props.toggleAlive({ x: i, y: j }); }}
-                />
-              )}
-              </tr>)}
-          </tbody>
-        </TableStyle>
-      </div>
+      <tbody>
+        {this.props.board.map((row, i) =>
+          <tr key={i}>{row.map((cell, j) =>
+            <Cell key={j}
+              alive={cell.alive}
+              handleClick={() => { this.props.toggleAlive({ x: i, y: j }); }}
+            />
+          )}
+          </tr>)}
+      </tbody>
     );
   };
 }
