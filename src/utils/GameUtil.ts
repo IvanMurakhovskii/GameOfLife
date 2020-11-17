@@ -1,4 +1,4 @@
-import { BoardType, CellType, Coordinate } from "@/types";
+import { BoardType, CellType, Coordinate, PatternType } from "@/types";
 import { patterns } from "./PatternUtil";
 
 export const makeGrid = (random = false, population = 0.1, height = 30, width = 30): Array<Array<CellType>> => {
@@ -61,7 +61,7 @@ export const updateGameField = (board: BoardType): BoardType => {
             const isAlive = board[i][j].alive;
             const aliveNeighboreCount = _getAliveNeighboreCount({ x: i, y: j }, board);
             if (isAlive) {
-                if (aliveNeighboreCount < 2 || aliveNeighboreCount > 3) {
+                if (isAliveCellShouldDeath(aliveNeighboreCount)) {
                     row.push({ alive: false });
                 } else {
                     row.push({ alive: true });
@@ -79,19 +79,31 @@ export const updateGameField = (board: BoardType): BoardType => {
     return newBoard;
 }
 
+export const isAliveCellShouldDeath = (aliveNeighboreCount: number): boolean => {
+    return (aliveNeighboreCount < 2 || aliveNeighboreCount > 3)
+}
+
+
 export const insertPatterntToBoard = (board: BoardType, patternId: number) => {
     const height = board.length;
     const width = board[0].length;
-    const points = patterns.find((p) => p.id == patternId)?.points;
+    const points = findPatternById(patternId)?.points;
 
     if (points !== undefined) {
-        const x = Math.ceil(width / 2);
-        const y = Math.ceil(height / 2);
+        const middlePoint = getMiddlePoint(width, height);
 
         points.forEach((point) => {
-            board[x + point.x][y + point.y].alive = true;
-        })
+            board[middlePoint.x + point.x][middlePoint.y + point.y].alive = true;
+        });
     }
+}
+
+export const getMiddlePoint = (width: number, height: number): Coordinate => {
+    return { x: Math.ceil(width / 2), y: Math.ceil(height / 2) };
+}
+
+export const findPatternById = (id: number): PatternType | undefined => {
+    return patterns.find((p) => p.id == id);
 }
 
 

@@ -1,22 +1,28 @@
-import { actions, reducer } from './slice';
+import { actions, reducer, initialState } from './slice';
 
-const initialState = {
+const testState = {
     username: "test"
 }
 
 describe("Login slice", () => {
+
+    it("initialState", () => {
+        const state = { username: "" }
+        expect(initialState).toEqual(state);
+    });
+
     it("action should fill username to state", () => {
-        const state = reducer(initialState, actions.login("username"));
+        const state = reducer(testState, actions.login("username"));
         expect(state.username).toEqual("username");
     });
 
     it("action should logout user", () => {
-        const state = reducer(initialState, actions.logout());
+        const state = reducer(testState, actions.logout());
         expect(state.username).toEqual("");
     });
 
     it("action should set username", () => {
-        const state = reducer(initialState, actions.setUsername("username"));
+        const state = reducer(testState, actions.setUsername("username"));
         expect(state.username).toEqual("username");
     });
 });
