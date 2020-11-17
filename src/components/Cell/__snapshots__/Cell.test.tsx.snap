@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`TodoListItem render item with data 1`] = `
-<Styled(td)
-  alive={true}
-  handleClick={[MockFunction]}
-  onClick={[MockFunction]}
-/>
-`;

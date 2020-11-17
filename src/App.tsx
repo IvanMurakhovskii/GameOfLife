@@ -7,23 +7,23 @@ import { PrivateRoute } from './utils';
 import Game from './modules/Game';
 import { css, Global } from '@emotion/core';
 
-const styles = css`
-  html,
-  body
-  .root {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    weight: 100%;
-    background-color: #f5f5f5;
-    
-  }
-`;
+// const styles = css`
+//   html,
+//   body
+//   .root {
+//     margin: 0;
+//     padding: 0;
+//     height: 100%;
+//     weight: 100%;
+//     background-color: #f5f5f5;
+
+//   }
+// `;
 
 const App: FC = () => {
     return (
         <div>
-            <Global styles={styles} />
+            {/* <Global styles={styles} /> */}
             <Provider store={store}>
                 <BrowserRouter>
                     <Switch>

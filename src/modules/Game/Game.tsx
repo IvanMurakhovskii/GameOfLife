@@ -51,7 +51,7 @@ const GameContainer: FC<Props> = (props) => {
 
   return (
     <Container component="main" className={classes.container}>
-      <Grid container spacing={1} alignContent="center" alignItems="stretch">
+      <Grid container spacing={2} alignContent="center" alignItems="stretch">
         <Grid item xs={4} >
           <Header />
           <GameSettings

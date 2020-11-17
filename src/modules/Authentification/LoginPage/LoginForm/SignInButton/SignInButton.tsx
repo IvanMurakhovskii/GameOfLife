@@ -10,11 +10,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SignInButton: FC<{}> = () => {
+interface Props {
+    disabled: boolean
+}
+
+const SignInButton: FC<Props> = (props) => {
     const classes = useStyles();
     return (
         <>
             <Button
+                disabled={props.disabled}
                 type="submit"
                 fullWidth
                 variant="contained"
