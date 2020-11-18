@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Typography, Slider, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Typography, Slider, makeStyles, Theme, createStyles, Tooltip } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,6 +17,8 @@ interface Props {
     label: string
     min: number
     max: number
+    disabled: boolean
+    title: string
     onChangeCommitted(value: number): void
 };
 
@@ -29,16 +31,20 @@ const MaterialSlider: FC<Props> = (props: Props) => {
             <Typography className={classes.typography}>
                 {label}
             </Typography>
-            <Slider
-                className={classes.slider}
-                defaultValue={max / 2}
-                valueLabelDisplay="auto"
-                min={min}
-                max={max}
-                onChangeCommitted={(event, value) => {
-                    onChangeCommitted(value as number);
-                }}
-            />
+            <Tooltip title={props.title}>
+                <Slider
+                    disabled={props.disabled}
+                    className={classes.slider}
+                    defaultValue={max / 2}
+                    valueLabelDisplay="auto"
+                    min={min}
+                    max={max}
+                    onChangeCommitted={(event, value) => {
+                        onChangeCommitted(value as number);
+                    }}
+                />
+            </Tooltip>
+
         </>
     );
 }

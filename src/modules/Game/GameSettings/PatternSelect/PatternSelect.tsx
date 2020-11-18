@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 
 import { Select, MenuItem, Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { patterns } from '@/utils';
-import { actions } from '../../slice';
-import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,12 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-// const mapDispatchToProps = {
-//     insertPattern: actions.insertPattern
-// }
-
-// export type Props = typeof mapDispatchToProps;
 
 interface Props {
     onChange(value: number): void

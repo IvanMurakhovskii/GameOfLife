@@ -1,3 +1,9 @@
 node_modules
-dist
 coverage
+dist
+reports
+storybook-static
+# stryker temp files
+.stryker-tmp
+.loki
+

@@ -1,5 +1,4 @@
 const path = require('path');
-require('babel-polyfill');
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -7,10 +6,7 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   entry: {
-    app: ['babel-polyfill', './src/']
-  },
-  externals: {
-    paths: "./src/index.tsx"
+    app: ['babel-polyfill', './src/index.tsx']
   },
   output: {
     filename: 'index.js',
@@ -24,8 +20,8 @@ module.exports = {
       },
       {
         test: /\.(js|ts)x?$/,
-        loader: require.resolve("babel-loader"),
         exclude: /node_modules/,
+        loader: "babel-loader"
       },
     ],
   },
